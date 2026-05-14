@@ -1,0 +1,25 @@
+export default function Navbar() {
+  return (
+    <nav className="w-full border-b border-zinc-800 bg-zinc-950">
+      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+        <h1 className="text-2xl font-bold">
+          ListnRate
+        </h1>
+
+        <div className="flex gap-6 text-sm text-zinc-300">
+          <button className="hover:text-white transition">
+            Movies
+          </button>
+
+          <button className="hover:text-white transition">
+            Anime
+          </button>
+
+          <button className="hover:text-white transition">
+            Music
+          </button>
+        </div>
+      </div>
+    </nav>
+  );
+}
