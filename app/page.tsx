@@ -1,30 +1,11 @@
 import Navbar from "@/components/Navbar";
 import MovieCard from "@/components/MovieCard";
+import { getTrendingMovies } from "@/lib/tmdb";
 
-const movies = [
-  {
-    title: "Star Wars",
-    description:
-      "A long time ago in a galaxy far, far away...",
-  },
-  {
-    title: "The Matrix",
-    description:
-      "Reality is not what it seems.",
-  },
-  {
-    title: "Interstellar",
-    description:
-      "Exploring space and time.",
-  },
-  {
-    title: "The Dark Knight",
-    description:
-      "Batman faces the Joker.",
-  },
-];
+export default async function Home() {
+  const movies =
+    await getTrendingMovies();
 
-export default function Home() {
   return (
     <>
       <Navbar />
@@ -36,11 +17,12 @@ export default function Home() {
           </h1>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {movies.map((movie) => (
+            {(movies ?? []).map((movie: any) => (
               <MovieCard
-                key={movie.title}
+                key={movie.id}
                 title={movie.title}
-                description={movie.description}
+                description={movie.overview}
+                posterPath={movie.poster_path}
               />
             ))}
           </div>
