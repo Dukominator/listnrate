@@ -1,11 +1,28 @@
 import Navbar from "@/components/Navbar";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import MovieCard from "@/components/MovieCard";
+
+const movies = [
+  {
+    title: "Star Wars",
+    description:
+      "A long time ago in a galaxy far, far away...",
+  },
+  {
+    title: "The Matrix",
+    description:
+      "Reality is not what it seems.",
+  },
+  {
+    title: "Interstellar",
+    description:
+      "Exploring space and time.",
+  },
+  {
+    title: "The Dark Knight",
+    description:
+      "Batman faces the Joker.",
+  },
+];
 
 export default function Home() {
   return (
@@ -19,22 +36,13 @@ export default function Home() {
           </h1>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <Card className="bg-zinc-900 border-zinc-800 text-white">
-              <CardHeader>
-                <CardTitle>Star Wars</CardTitle>
-              </CardHeader>
-
-              <CardContent>
-                <p className="text-zinc-400 mb-4">
-                  A long time ago in a galaxy far,
-                  far away...
-                </p>
-
-                <Button>
-                  View List
-                </Button>
-              </CardContent>
-            </Card>
+            {movies.map((movie) => (
+              <MovieCard
+                key={movie.title}
+                title={movie.title}
+                description={movie.description}
+              />
+            ))}
           </div>
         </div>
       </main>
