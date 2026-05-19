@@ -1,47 +1,107 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { supabase } from "@/lib/supabase";
+
 import { useRouter } from "next/navigation";
+
+import Navbar from "@/components/Navbar";
+
+import { supabase } from "@/lib/supabase";
+
+type List = {
+  id: number;
+  title: string;
+  description: string;
+  visibility: string;
+};
 
 export default function DashboardPage() {
   const [user, setUser] = useState<any>(null);
 
+  const [lists, setLists] = useState<
+    List[]
+  >([]);
+
   const router = useRouter();
 
   useEffect(() => {
-    async function getUser() {
+    async function loadData() {
       const {
         data: { user },
       } = await supabase.auth.getUser();
 
       if (!user) {
         router.push("/login");
-      } else {
-        setUser(user);
+
+        return;
+      }
+
+      setUser(user);
+
+      const { data } = await supabase
+        .from("lists")
+        .select("*")
+        .order("created_at", {
+          ascending: false,
+        });
+
+      if (data) {
+        setLists(data);
       }
     }
 
-    getUser();
+    loadData();
   }, [router]);
 
   return (
-    <main className="min-h-screen bg-black text-white p-10">
-      <h1 className="text-5xl font-bold mb-6">
-        Dashboard
-      </h1>
+    <>
+      <Navbar />
 
-      {user && (
-        <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-6">
-          <p className="text-xl mb-2">
-            Logged in as:
-          </p>
+      <main className="min-h-screen bg-black text-white p-10">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex items-center justify-between mb-10">
+            <div>
+              <h1 className="text-5xl font-bold">
+                Dashboard
+              </h1>
 
-          <p className="text-zinc-400">
-            {user.email}
-          </p>
+              <p className="text-zinc-400 mt-2">
+                Welcome back {user?.email}
+              </p>
+            </div>
+
+            <button
+              onClick={() =>
+                router.push("/create-list")
+              }
+              className="bg-white text-black px-6 py-3 rounded-xl font-semibold"
+            >
+              Create List
+            </button>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {lists.map((list) => (
+              <div
+                key={list.id}
+                className="bg-zinc-900 border border-zinc-800 rounded-2xl p-6"
+              >
+                <h2 className="text-2xl font-bold mb-3">
+                  {list.title}
+                </h2>
+
+                <p className="text-zinc-400 mb-4">
+                  {list.description}
+                </p>
+
+                <span className="text-sm text-zinc-500">
+                  {list.visibility}
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
-      )}
-    </main>
+      </main>
+    </>
   );
 }
