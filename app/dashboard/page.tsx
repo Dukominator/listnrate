@@ -1,5 +1,7 @@
 "use client";
 
+import { User } from "@supabase/supabase-js";
+
 import { useEffect, useState } from "react";
 
 import { useRouter } from "next/navigation";
@@ -16,7 +18,8 @@ type List = {
 };
 
 export default function DashboardPage() {
-  const [user, setUser] = useState<any>(null);
+ const [user, setUser] =
+  useState<User | null>(null);
 
   const [lists, setLists] = useState<
     List[]
