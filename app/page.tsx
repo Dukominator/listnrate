@@ -20,6 +20,7 @@ export default async function Home() {
             {(movies ?? []).map((movie: any) => (
               <MovieCard
                 key={movie.id}
+                id={movie.id}
                 title={movie.title}
                 description={movie.overview}
                 posterPath={movie.poster_path}

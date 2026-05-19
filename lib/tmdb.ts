@@ -17,3 +17,23 @@ export async function getTrendingMovies() {
 
   return data?.results ?? [];
 }
+
+
+
+export async function getMovie(
+  id: string
+) {
+  const response = await fetch(
+    `https://api.themoviedb.org/3/movie/${id}`,
+    {
+      headers: {
+        Authorization: `Bearer ${API_TOKEN}`,
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  const data = await response.json();
+
+  return data;
+}

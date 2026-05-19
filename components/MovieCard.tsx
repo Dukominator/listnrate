@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Image from "next/image";
 
 import {
@@ -10,18 +11,21 @@ import {
 import { Button } from "@/components/ui/button";
 
 type MovieCardProps = {
+  id: number;
   title: string;
   description: string;
   posterPath: string;
 };
 
 export default function MovieCard({
+  id,
   title,
   description,
   posterPath,
 }: MovieCardProps) {
   return (
-    <Card className="bg-zinc-900 border-zinc-800 text-white overflow-hidden hover:scale-105 transition duration-300">
+  <Link href={`/movie/${id}`}>
+    <Card className="bg-zinc-900 border-zinc-800 text-white overflow-hidden hover:scale-105 transition duration-300 cursor-pointer">
       <div className="relative w-full h-80">
         <Image
           src={`https://image.tmdb.org/t/p/w500${posterPath}`}
@@ -45,5 +49,6 @@ export default function MovieCard({
         </Button>
       </CardContent>
     </Card>
+  </Link>
   );
 }
