@@ -25,7 +25,7 @@ export default async function MoviePage({
       <Navbar />
 
       <main className="min-h-screen bg-black text-white">
-        <div className="relative h-[500px]">
+        <div className="relative h-125">
           <Image
             src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
             alt={movie.title}
@@ -33,7 +33,7 @@ export default async function MoviePage({
             className="object-cover opacity-40"
           />
 
-          <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent" />
+          <div className="absolute inset-0 bg-linear-to-t from-black to-transparent" />
 
           <div className="relative z-10 max-w-7xl mx-auto h-full flex items-end p-10">
             <div className="flex gap-8 items-end">
