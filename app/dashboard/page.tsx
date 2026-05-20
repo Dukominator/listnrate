@@ -104,8 +104,9 @@ export default function DashboardPage() {
                   {list.visibility}
                 </span>
               </div>
-            ))}
               </Link>
+            ))}
+              
             </div>
         </div>
       </main>
