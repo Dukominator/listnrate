@@ -1,8 +1,11 @@
+
+
 import Image from "next/image";
-
 import Navbar from "@/components/Navbar";
-
 import { getMovie } from "@/lib/tmdb";
+import AddToList from "@/components/AddToList";
+
+
 
 type Props = {
   params: Promise<{
@@ -62,9 +65,11 @@ export default async function MoviePage({
                   </span>
                 </div>
 
-                <button className="bg-white text-black px-6 py-3 rounded-xl font-semibold">
-                  Add To List
-                </button>
+                <AddToList
+                    movieId={movie.id}
+                    title={movie.title}
+                    posterPath={movie.poster_path}
+                  />
               </div>
             </div>
           </div>
