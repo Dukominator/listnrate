@@ -10,6 +10,8 @@ import Navbar from "@/components/Navbar";
 
 import { supabase } from "@/lib/supabase";
 
+import Link from "next/link";
+
 type List = {
   id: number;
   title: string;
@@ -85,10 +87,11 @@ export default function DashboardPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {lists.map((list) => (
-              <div
+              <Link
                 key={list.id}
-                className="bg-zinc-900 border border-zinc-800 rounded-2xl p-6"
+                href={`/list/${list.id}`}
               >
+  <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 hover:border-white transition cursor-pointer">
                 <h2 className="text-2xl font-bold mb-3">
                   {list.title}
                 </h2>
@@ -102,7 +105,8 @@ export default function DashboardPage() {
                 </span>
               </div>
             ))}
-          </div>
+              </Link>
+            </div>
         </div>
       </main>
     </>

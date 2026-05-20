@@ -56,11 +56,11 @@ export default function AddToList({
     const { error } = await supabase
       .from("list_items")
       .insert({
-        list_id: selectedList,
-        movie_id: movieId.toString(),
-        title,
-        poster_path: posterPath,
-      });
+            list_id: selectedList,
+            movie_id: movieId.toString(),
+            movie_title: title,
+            poster_path: posterPath,
+            });
 
     if (error) {
       alert(error.message);
