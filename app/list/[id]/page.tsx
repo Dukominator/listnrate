@@ -51,12 +51,12 @@ export default async function ListPage({
 
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
             {items?.map((item) => (
-              <Link
-                key={item.id}
-                href={`/movie/${item.movie_id}`}
-              >
+<Link
+  key={item.id}
+  href={`/list-item/${item.id}`}
+>
                 <div className="group">
-                  <div className="relative aspect-[2/3] rounded-2xl overflow-hidden border border-zinc-800">
+                  <div className="relative aspect-2/3 rounded-2xl overflow-hidden border border-zinc-800">
                     <Image
                       src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
                       alt={item.movie_title}
@@ -65,9 +65,21 @@ export default async function ListPage({
                     />
                   </div>
 
-                  <h2 className="mt-3 font-semibold text-sm">
-                    {item.movie_title}
-                  </h2>
+<h2 className="mt-3 font-semibold text-sm">
+  {item.movie_title}
+</h2>
+
+{item.rating && (
+  <p className="text-yellow-400 text-sm mt-1">
+    ⭐ {item.rating}/10
+  </p>
+)}
+
+{item.review && (
+  <p className="text-zinc-400 text-xs mt-1 line-clamp-2">
+    {item.review}
+  </p>
+)}
                 </div>
               </Link>
             ))}
