@@ -12,6 +12,8 @@ import { supabase } from "@/lib/supabase";
 
 import Link from "next/link";
 
+import MovieSearch from "@/components/MovieSearch";
+
 type List = {
   id: number;
   title: string;
@@ -69,12 +71,11 @@ export default function DashboardPage() {
               <h1 className="text-5xl font-bold">
                 Dashboard
               </h1>
-
               <p className="text-zinc-400 mt-2">
                 Welcome back {user?.email}
               </p>
             </div>
-
+<MovieSearch lists={lists || []} />
             <button
               onClick={() =>
                 router.push("/create-list")

@@ -2,8 +2,10 @@ import Image from "next/image";
 import Link from "next/link";
 
 import Navbar from "@/components/Navbar";
-
+import RemoveMovieButton from "@/components/RemoveMovieButton";
 import { supabase } from "@/lib/supabase";
+import RatingInput from "@/components/RatingInput";
+
 
 type Props = {
   params: Promise<{
@@ -26,6 +28,8 @@ export default async function ListPage({
     .from("list_items")
     .select("*")
     .eq("list_id", id);
+
+
 
   return (
     <>
@@ -69,11 +73,18 @@ export default async function ListPage({
   {item.movie_title}
 </h2>
 
-{item.rating && (
-  <p className="text-yellow-400 text-sm mt-1">
-    ⭐ {item.rating}/10
-  </p>
-)}
+<RemoveMovieButton
+  itemId={item.id}
+/>
+
+<RemoveMovieButton
+  itemId={item.id}
+/>
+
+<RatingInput
+  itemId={item.id}
+  initialRating={item.rating}
+/>
 
 {item.review && (
   <p className="text-zinc-400 text-xs mt-1 line-clamp-2">
