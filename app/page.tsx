@@ -2,6 +2,13 @@ import Navbar from "@/components/Navbar";
 import MovieCard from "@/components/MovieCard";
 import { getTrendingMovies } from "@/lib/tmdb";
 
+type Movie = {
+  id: number;
+  title: string;
+  poster_path: string;
+  overview: string;
+};
+
 export default async function Home() {
   const movies =
     await getTrendingMovies();
@@ -17,7 +24,8 @@ export default async function Home() {
           </h1>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {(movies ?? []).map((movie: any) => (
+            
+            {(movies ?? []).map((movie: Movie) => (
               <MovieCard
                 key={movie.id}
                 id={movie.id}

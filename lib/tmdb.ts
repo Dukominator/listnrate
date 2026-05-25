@@ -1,14 +1,11 @@
-const API_TOKEN = process.env.TMDB_API_KEY;
+// src/lib/tmdb.ts
 
+const API_KEY = process.env.TMDB_API_KEY;
+
+// 🔥 Trending movies
 export async function getTrendingMovies() {
   const response = await fetch(
-    "https://api.themoviedb.org/3/trending/movie/week",
-    {
-      headers: {
-        Authorization: `Bearer ${API_TOKEN}`,
-        "Content-Type": "application/json",
-      },
-    }
+    `https://api.themoviedb.org/3/trending/movie/week?api_key=${API_KEY}`
   );
 
   const data = await response.json();
@@ -18,19 +15,10 @@ export async function getTrendingMovies() {
   return data?.results ?? [];
 }
 
-
-
-export async function getMovie(
-  id: string
-) {
+// 🎬 Single movie details
+export async function getMovie(id: string) {
   const response = await fetch(
-    `https://api.themoviedb.org/3/movie/${id}`,
-    {
-      headers: {
-        Authorization: `Bearer ${API_TOKEN}`,
-        "Content-Type": "application/json",
-      },
-    }
+    `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}`
   );
 
   const data = await response.json();
