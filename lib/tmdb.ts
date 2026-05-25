@@ -1,60 +1,16 @@
-console.log("TMDB KEY EXISTS:", !!process.env.TMDB_API_KEY);
+export async function getTrendingMovies() {
+  console.log("🔥 TRENDING FUNCTION CALLED");
 
-const API_KEY = process.env.TMDB_API_KEY;
+  const url =
+    `https://api.themoviedb.org/3/trending/movie/week?api_key=${process.env.TMDB_API_KEY}`;
 
-const BASE_URL =
-  "https://api.themoviedb.org/3";
+  console.log("🔥 URL:", url);
 
-async function fetchFromTMDB(
-  endpoint: string
-) {
-  const response = await fetch(
-    `${BASE_URL}${endpoint}${
-      endpoint.includes("?")
-        ? "&"
-        : "?"
-    }api_key=${API_KEY}`
-  );
+  const response = await fetch(url);
 
   const data = await response.json();
 
-  console.log(
-    "TMDB RESPONSE:",
-    data
-  );
-
-  return data;
-}
-
-// 🔥 Trending movies
-export async function getTrendingMovies() {
-  const data =
-    await fetchFromTMDB(
-      "/trending/movie/week"
-    );
+  console.log("🔥 TMDB RESPONSE:", data);
 
   return data?.results ?? [];
-}
-
-// 🔍 Search movies
-export async function searchMovies(
-  query: string
-) {
-  const data =
-    await fetchFromTMDB(
-      `/search/movie?query=${encodeURIComponent(
-        query
-      )}`
-    );
-
-  return data?.results ?? [];
-}
-
-// 🎬 Single movie
-export async function getMovie(
-  id: string
-) {
-  return await fetchFromTMDB(
-    `/movie/${id}`
-  );
 }
