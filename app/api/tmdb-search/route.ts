@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 
+import { searchMovies } from "@/lib/tmdb";
+
 export async function GET(
   req: Request
 ) {
@@ -7,13 +9,12 @@ export async function GET(
     new URL(req.url);
 
   const query =
-    searchParams.get("q");
+    searchParams.get("q") || "";
 
-  const res = await fetch(
-    `https://api.themoviedb.org/3/search/movie?query=${query}&api_key=${process.env.TMDB_API_KEY}`
-  );
+  const results =
+    await searchMovies(query);
 
-  const data = await res.json();
-
-  return NextResponse.json(data);
+  return NextResponse.json({
+    results,
+  });
 }

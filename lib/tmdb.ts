@@ -1,27 +1,58 @@
-// src/lib/tmdb.ts
-
 const API_KEY = process.env.TMDB_API_KEY;
 
-// 🔥 Trending movies
-export async function getTrendingMovies() {
+const BASE_URL =
+  "https://api.themoviedb.org/3";
+
+async function fetchFromTMDB(
+  endpoint: string
+) {
   const response = await fetch(
-    `https://api.themoviedb.org/3/trending/movie/week?api_key=${API_KEY}`
+    `${BASE_URL}${endpoint}${
+      endpoint.includes("?")
+        ? "&"
+        : "?"
+    }api_key=${API_KEY}`
   );
 
   const data = await response.json();
 
-  console.log("TMDB RESPONSE:", data);
+  console.log(
+    "TMDB RESPONSE:",
+    data
+  );
+
+  return data;
+}
+
+// 🔥 Trending movies
+export async function getTrendingMovies() {
+  const data =
+    await fetchFromTMDB(
+      "/trending/movie/week"
+    );
 
   return data?.results ?? [];
 }
 
-// 🎬 Single movie details
-export async function getMovie(id: string) {
-  const response = await fetch(
-    `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}`
+// 🔍 Search movies
+export async function searchMovies(
+  query: string
+) {
+  const data =
+    await fetchFromTMDB(
+      `/search/movie?query=${encodeURIComponent(
+        query
+      )}`
+    );
+
+  return data?.results ?? [];
+}
+
+// 🎬 Single movie
+export async function getMovie(
+  id: string
+) {
+  return await fetchFromTMDB(
+    `/movie/${id}`
   );
-
-  const data = await response.json();
-
-  return data;
 }
