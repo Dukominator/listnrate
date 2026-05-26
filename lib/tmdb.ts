@@ -2,11 +2,18 @@ const API_KEY = process.env.TMDB_API_KEY;
 
 const BASE_URL = "https://api.themoviedb.org/3";
 
-async function fetchFromTMDB(endpoint: string) {
+async function fetchFromTMDB(
+  endpoint: string
+) {
   const res = await fetch(
     `${BASE_URL}${endpoint}${
-      endpoint.includes("?") ? "&" : "?"
-    }api_key=${API_KEY}`
+      endpoint.includes("?")
+        ? "&"
+        : "?"
+    }api_key=${API_KEY}`,
+    {
+      cache: "no-store",
+    }
   );
 
   return await res.json();

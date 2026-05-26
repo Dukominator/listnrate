@@ -11,7 +11,7 @@ type Movie = {
 
 export default async function Home() {
   const movies = await getTrendingMovies();
-console.log("HOME MOVIES:", movies);
+  
   return (
     <>
       <Navbar />
