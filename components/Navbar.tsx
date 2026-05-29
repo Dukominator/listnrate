@@ -1,73 +1,108 @@
 "use client";
 
 import Link from "next/link";
+
 import { useEffect, useState } from "react";
+
+import {
+  User,
+} from "@supabase/supabase-js";
+
 import { supabase } from "@/lib/supabase";
-import { User } from "@supabase/supabase-js";
 
 export default function Navbar() {
   const [user, setUser] =
-  useState<User | null>(null);
+    useState<User | null>(null);
+
+  const [username, setUsername] =
+    useState("");
 
   useEffect(() => {
-    async function getUser() {
+    async function loadUser() {
       const {
         data: { user },
-      } = await supabase.auth.getUser();
+      } =
+        await supabase.auth.getUser();
 
       setUser(user);
+
+      if (!user) return;
+
+      const { data: profile } =
+        await supabase
+          .from("profiles")
+          .select("username")
+          .eq("id", user.id)
+          .single();
+
+      if (profile?.username) {
+        setUsername(
+          profile.username
+        );
+      }
     }
 
-    getUser();
+    loadUser();
   }, []);
 
-  async function handleLogout() {
+  async function signOut() {
     await supabase.auth.signOut();
 
-    window.location.reload();
+    window.location.href = "/";
   }
 
   return (
-    <nav className="w-full border-b border-zinc-800 bg-zinc-950">
-      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-        <Link
-          href="/"
-          className="text-2xl font-bold"
-        >
-          ListnRate
+    <nav className="border-b border-zinc-800 px-6 py-4 flex items-center justify-between">
+      <Link
+        href="/"
+        className="text-2xl font-bold"
+      >
+        ListnRate
+      </Link>
+
+      <div className="flex items-center gap-6">
+        <Link href="/">
+          Home
         </Link>
 
-        <div className="flex items-center gap-6 text-sm text-zinc-300">
-          <Link
-            href="/dashboard"
-            className="hover:text-white"
-          >
-            Dashboard
-          </Link>
+        {user && (
+          <>
+            <Link href="/dashboard">
+              Dashboard
+            </Link>
 
-          {user ? (
-            <>
-              <span className="text-zinc-500">
-                {user.email}
-              </span>
+            <Link href="/dashboard/profile">
+              Profile
+            </Link>
 
-              <button
-                onClick={handleLogout}
-                className="hover:text-white"
+            {username && (
+              <Link
+                href={`/u/${username}`}
               >
-                Logout
-              </button>
-            </>
-          ) : (
-            <Link
-              href="/login"
-              className="hover:text-white"
+                Public Profile
+              </Link>
+            )}
+
+            <button
+              onClick={signOut}
+              className="bg-red-600 px-4 py-2 rounded-xl"
             >
+              Logout
+            </button>
+          </>
+        )}
+
+        {!user && (
+          <>
+            <Link href="/login">
               Login
             </Link>
-            
-          )}
-        </div>
+
+            <Link href="/signup">
+              Signup
+            </Link>
+          </>
+        )}
       </div>
     </nav>
   );

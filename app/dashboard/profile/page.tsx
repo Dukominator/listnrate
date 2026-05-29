@@ -1,5 +1,7 @@
 "use client";
 
+import Navbar from "@/components/Navbar";
+
 import { useEffect, useState } from "react";
 
 import { supabase } from "@/lib/supabase";
@@ -64,6 +66,8 @@ useEffect(() => {
   }
 
   return (
+    <>
+      <Navbar />
     <main className="max-w-2xl mx-auto p-8">
       <h1 className="text-4xl font-bold mb-8">
         Edit Profile
@@ -113,5 +117,7 @@ useEffect(() => {
         </button>
       </div>
     </main>
+    </>
+  
   );
 }
