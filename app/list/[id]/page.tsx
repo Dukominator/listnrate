@@ -7,6 +7,7 @@ import { supabase } from "@/lib/supabase";
 import RatingInput from "@/components/RatingInput";
 
 
+
 type Props = {
   params: Promise<{
     id: string;
@@ -45,8 +46,17 @@ export default async function ListPage({
             <p className="text-zinc-400 text-lg">
               {list?.description}
             </p>
-          </div>
 
+        <div className="mt-4">
+          <Link
+             href={`/list/${list?.id}/edit`}
+             className="bg-blue-600 hover:bg-blue-500 px-4 py-2 rounded-xl inline-block"
+           >
+            Edit List
+          </Link>
+        </div>
+        
+          </div>
           {items?.length === 0 && (
             <p className="text-zinc-500">
               No movies yet 😄
@@ -72,10 +82,6 @@ export default async function ListPage({
 <h2 className="mt-3 font-semibold text-sm">
   {item.movie_title}
 </h2>
-
-<RemoveMovieButton
-  itemId={item.id}
-/>
 
 <RemoveMovieButton
   itemId={item.id}
