@@ -86,7 +86,16 @@ useEffect(() => {
                 e.target.value
               )
             }
-            className="w-full p-3 rounded-xl bg-zinc-900"
+              className="
+                           w-full
+                           p-3
+                          rounded-xl
+                         bg-zinc-900
+                           border
+                         border-zinc-700
+                          text-white
+                          placeholder:text-zinc-400
+                            "
           />
         </div>
 

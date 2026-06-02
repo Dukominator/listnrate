@@ -68,7 +68,7 @@ export default function LoginPage() {
 
           <button
             onClick={signIn}
-            className="bg-white text-black p-3 rounded-lg font-semibold"
+            className="bg-zinc-900 text-black p-3 rounded-lg font-semibold"
           >
             Login
           </button>

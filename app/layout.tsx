@@ -16,7 +16,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={cn("font-sans", inter.variable)}>
-      <body>{children}</body>
+      <body className="bg-zinc-950 text-white min-h-screen">
+        {children}
+      </body>
     </html>
   );
 }

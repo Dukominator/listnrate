@@ -66,7 +66,7 @@ export default function EditListItemPage({
 
         <button
           onClick={saveReview}
-          className="bg-white text-black px-6 py-3 rounded-xl"
+          className="bg-zinc-900 px-6 py-3 rounded-xl"
         >
           Save
         </button>

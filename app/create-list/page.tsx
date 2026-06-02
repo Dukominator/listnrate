@@ -115,7 +115,7 @@ export default function CreateListPage() {
             <button
               onClick={createList}
               disabled={loading}
-              className="bg-white text-black p-4 rounded-xl font-semibold"
+              className="bg-zinc-900 text-black p-4 rounded-xl font-semibold"
             >
               {loading
                 ? "Creating..."

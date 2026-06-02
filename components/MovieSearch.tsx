@@ -97,7 +97,7 @@ const [movies, setMovies] = useState<Movie[]>([]);
 
         <button
           onClick={searchMovies}
-          className="bg-white text-black px-6 rounded-xl"
+          className="bg-zinc-900 px-6 rounded-xl"
         >
           Search
         </button>

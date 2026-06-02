@@ -127,3 +127,17 @@
     @apply font-sans;
     }
 }
+
+input,
+textarea,
+select {
+  background-color: rgb(24 24 27);
+  color: white;
+  border: 1px solid rgb(63 63 70);
+  border-radius: 0.75rem;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: rgb(161 161 170);
+}
