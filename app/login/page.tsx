@@ -1,9 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase";
 
 export default function LoginPage() {
+const router = useRouter();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] =
     useState("");
@@ -34,7 +37,7 @@ export default function LoginPage() {
     if (error) {
       alert(error.message);
     } else {
-      alert("Logged in!");
+        router.push("/dashboard");
     }
   }
 
@@ -68,7 +71,7 @@ export default function LoginPage() {
 
           <button
             onClick={signIn}
-            className="bg-zinc-900 text-black p-3 rounded-lg font-semibold"
+            className="bg-blue-600 hover:bg-blue-500 text-white p-3 rounded-lg font-semibold"
           >
             Login
           </button>

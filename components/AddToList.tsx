@@ -96,7 +96,15 @@ export default function AddToList({
 
       <button
         onClick={addToList}
-        className="bg-zinc-900 text-black px-4 py-2 rounded-xl"
+          className="
+    bg-blue-600
+    hover:bg-blue-500
+    text-white
+    px-4
+    py-2
+    rounded-xl
+    transition
+  "
       >
         Add to List
       </button>

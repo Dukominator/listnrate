@@ -8,6 +8,8 @@ import Navbar from "@/components/Navbar";
 
 import { supabase } from "@/lib/supabase";
 
+import DeleteListButton from "@/components/DeleteListButton";
+
 export default function EditListPage() {
   const params = useParams();
 
@@ -162,6 +164,12 @@ export default function EditListPage() {
           >
             Save Changes
           </button>
+<div className="pt-4">
+  <DeleteListButton
+    listId={Number(params.id)}
+  />
+</div>
+
         </div>
       </main>
     </>
