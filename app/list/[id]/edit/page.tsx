@@ -11,7 +11,7 @@ import { supabase } from "@/lib/supabase";
 import DeleteListButton from "@/components/DeleteListButton";
 
 export default function EditListPage() {
-  const params = useParams();
+  const params = useParams<{ id: string }>();
 
   const router = useRouter();
 
@@ -164,6 +164,7 @@ export default function EditListPage() {
           >
             Save Changes
           </button>
+          <p>List ID: {params.id}</p>
 <div className="pt-4">
   <DeleteListButton
     listId={String(params.id)}
