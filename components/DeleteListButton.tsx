@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase";
 
 type Props = {
-  listId: number;
+  listId: string;
 };
 
 export default function DeleteListButton({

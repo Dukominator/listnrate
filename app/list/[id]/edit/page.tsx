@@ -166,7 +166,7 @@ export default function EditListPage() {
           </button>
 <div className="pt-4">
   <DeleteListButton
-    listId={Number(params.id)}
+    listId={String(params.id)}
   />
 </div>
 
