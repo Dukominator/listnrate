@@ -37,25 +37,30 @@ export default function CreateListPage() {
       return;
     }
 
-    const { error } =
-      await supabase.from("lists").insert({
-        user_id: user.id,
-        title,
-        description,
-        visibility,
-      });
+const { data, error } = await supabase
+  .from("lists")
+  .insert({
+    user_id: user.id,
+    title,
+    description,
+    visibility,
+  })
+  .select()
+  .single();
 
-    setLoading(false);
+console.log("NEW LIST:", data);
 
-    if (error) {
-      console.error(error);
+setLoading(false);
 
-      alert(error.message);
+if (error) {
+  console.error(error);
 
-      return;
-    }
+  alert(error.message);
 
-    router.push("/dashboard");
+  return;
+}
+
+router.push("/dashboard");
   }
 
   return (

@@ -12,7 +12,7 @@ import DeleteListButton from "@/components/DeleteListButton";
 
 export default function EditListPage() {
   const params = useParams<{ id: string }>();
-
+  console.log("PARAM ID:", params.id);
   const router = useRouter();
 
   const [title, setTitle] =
@@ -35,15 +35,16 @@ export default function EditListPage() {
           .select("*")
           .eq("id", params.id)
           .single();
+          console.log("LOADED LIST:", data);
 
       if (data) {
         setTitle(data.title ?? "");
         setDescription(
           data.description ?? ""
         );
-        setIsPublic(
-          data.is_public ?? false
-        );
+setIsPublic(
+  data.visibility === "public"
+);
       }
 
       setLoading(false);
@@ -52,20 +53,26 @@ export default function EditListPage() {
     loadList();
   }, [params.id]);
 
-  async function saveList() {
-    await supabase
-      .from("lists")
-      .update({
-        title,
-        description,
-        is_public: isPublic,
-      })
-      .eq("id", params.id);
+async function saveList() {
+  const result = await supabase
+    .from("lists")
+    .update({
+      title,
+      description,
+      visibility: isPublic
+        ? "public"
+        : "private",
+    })
+    .eq("id", Number(params.id))
+    .select();
 
-    router.push(
-      `/list/${params.id}`
-    );
+  console.log("UPDATE RESULT:", result);
+  console.log("PARAM ID:", params.id);
+
+  if (!result.error) {
+    router.push(`/list/${params.id}`);
   }
+}
 
   if (loading) {
     return (
@@ -164,7 +171,6 @@ export default function EditListPage() {
           >
             Save Changes
           </button>
-          <p>List ID: {params.id}</p>
 <div className="pt-4">
   <DeleteListButton
     listId={String(params.id)}

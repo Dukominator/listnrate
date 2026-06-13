@@ -24,6 +24,8 @@ export default async function ListPage({
     .select("*")
     .eq("id", id)
     .single();
+console.log("LIST:", list);
+console.log("LIST ID:", list?.id);
 
   const { data: items } = await supabase
     .from("list_items")
@@ -47,14 +49,14 @@ export default async function ListPage({
               {list?.description}
             </p>
 
-        <div className="mt-4">
-          <Link
-             href={`/list/${list?.id}/edit`}
-             className="bg-blue-600 hover:bg-blue-500 px-4 py-2 rounded-xl inline-block"
-           >
-            Edit List
-          </Link>
-        </div>
+<div className="mt-4">
+  <Link
+    href={`/list/${id}/edit`}
+    className="bg-blue-600 hover:bg-blue-500 px-4 py-2 rounded-xl inline-block"
+  >
+    Edit List
+  </Link>
+</div>
         
           </div>
           {items?.length === 0 && (

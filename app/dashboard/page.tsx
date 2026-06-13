@@ -15,7 +15,7 @@ type List = {
   id: number;
   title: string;
   description: string;
-  is_public: boolean;
+  visibility: string;
 };
 
 export default function DashboardPage() {
@@ -139,9 +139,7 @@ const [user, setUser] =
                     </h3>
 
                     <span className="text-sm text-zinc-400">
-                      {list.is_public
-                        ? "Public"
-                        : "Private"}
+                      {list.visibility}
                     </span>
                   </div>
 
