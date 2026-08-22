@@ -10,6 +10,9 @@ export default function ProfilePage() {
   const [username, setUsername] =
     useState("");
 
+const [displayName, setDisplayName] =
+  useState("");
+
   const [bio, setBio] =
     useState("");
 
@@ -29,10 +32,13 @@ export default function ProfilePage() {
       .eq("id", user.id)
       .single();
 
-    if (data) {
-      setUsername(data.username || "");
-      setBio(data.bio || "");
-    }
+if (data) {
+  setUsername(data.username || "");
+  setDisplayName(
+    data.display_name || ""
+  );
+  setBio(data.bio || "");
+}
   }
 
 useEffect(() => {
@@ -52,13 +58,15 @@ useEffect(() => {
 
     if (!user) return;
 
-    await supabase
-      .from("profiles")
-      .upsert({
-        id: user.id,
-        username,
-        bio,
-      });
+await supabase
+  .from("profiles")
+  .upsert({
+    id: user.id,
+    username,
+    display_name:
+      displayName,
+    bio,
+  });
 
     setLoading(false);
 
@@ -72,6 +80,23 @@ useEffect(() => {
       <h1 className="text-4xl font-bold mb-8">
         Edit Profile
       </h1>
+
+<div className="mb-8">
+  <a
+    href={`/u/${username}`}
+    className="
+      inline-block
+      bg-blue-600
+      hover:bg-blue-500
+      px-5
+      py-3
+      rounded-xl
+      font-semibold
+    "
+  >
+    View Public Profile
+  </a>
+</div>
 
       <div className="space-y-6">
         <div>
@@ -98,6 +123,30 @@ useEffect(() => {
                             "
           />
         </div>
+
+<div>
+  <label className="block mb-2">
+    Display Name
+  </label>
+
+  <input
+    value={displayName}
+    onChange={(e) =>
+      setDisplayName(
+        e.target.value
+      )
+    }
+    className="
+      w-full
+      p-3
+      rounded-xl
+      bg-zinc-900
+      border
+      border-zinc-700
+      text-white
+    "
+  />
+</div>
 
         <div>
           <label className="block mb-2">

@@ -24,8 +24,13 @@ export default async function ListPage({
     .select("*")
     .eq("id", id)
     .single();
-console.log("LIST:", list);
-console.log("LIST ID:", list?.id);
+
+    const { data: profile } =
+  await supabase
+    .from("profiles")
+    .select("username")
+    .eq("id", list?.user_id)
+    .single();
 
   const { data: items } = await supabase
     .from("list_items")
@@ -48,6 +53,20 @@ console.log("LIST ID:", list?.id);
             <p className="text-zinc-400 text-lg">
               {list?.description}
             </p>
+
+{profile?.username && (
+  <Link
+    href={`/u/${profile.username}`}
+    className="
+      text-blue-400
+      hover:text-blue-300
+      block
+      mt-4
+    "
+  >
+    @{profile.username}
+  </Link>
+)}
 
 <div className="mt-4">
   <Link

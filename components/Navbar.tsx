@@ -27,7 +27,6 @@ export default function Navbar() {
       setUser(user);
 
       if (!user) return;
-
       const { data: profile } =
         await supabase
           .from("profiles")
@@ -71,9 +70,9 @@ export default function Navbar() {
               Dashboard
             </Link>
 
-            <Link href="/dashboard/profile">
-              Profile
-            </Link>
+<Link href="/dashboard/profile">
+  Profile
+</Link>
 
             {username && (
               <Link

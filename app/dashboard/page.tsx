@@ -25,6 +25,9 @@ export default function DashboardPage() {
 const [user, setUser] =
   useState<User | null>(null);
 
+const [username, setUsername] =
+  useState("");
+
   const [lists, setLists] =
     useState<List[]>([]);
 
@@ -36,7 +39,20 @@ const [user, setUser] =
         await supabase.auth.getUser();
 
       setUser(user);
+if (user) {
+  const { data: profile } =
+    await supabase
+      .from("profiles")
+      .select("username")
+      .eq("id", user.id)
+      .single();
 
+  if (profile?.username) {
+    setUsername(
+      profile.username
+    );
+  }
+}
       if (!user) {
         setLoading(false);
         return;
@@ -93,12 +109,26 @@ const [user, setUser] =
             <h1 className="text-5xl font-bold">
               Dashboard
             </h1>
+{username && (
+  <Link
+    href={`/u/${username}`}
+    className="
+      text-blue-400
+      hover:text-blue-300
+    "
+  >
+    View Public Profile
+  </Link>
+)}
+
 
             <p className="text-zinc-400 mt-2">
               Manage your movie
               lists and ratings
             </p>
           </div>
+
+
 
           <Link
             href="/create-list"

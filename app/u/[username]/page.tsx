@@ -1,7 +1,5 @@
 import Link from "next/link";
-
 import Navbar from "@/components/Navbar";
-
 import { supabase } from "@/lib/supabase";
 
 type Props = {
@@ -22,9 +20,12 @@ export default async function UserPage({
       .eq("username", username)
       .single();
 
+
+      
   if (!profile) {
     return (
-      <>
+  
+      <> 
         <Navbar />
 
         <main className="p-8">
@@ -34,15 +35,15 @@ export default async function UserPage({
     );
   }
 
-  const { data: lists } =
-    await supabase
-      .from("lists")
-      .select("*")
-      .eq("user_id", profile.id)
-      .eq("is_public", true)
-      .order("created_at", {
-        ascending: false,
-      });
+const { data: lists } =
+  await supabase
+    .from("lists")
+    .select("*")
+    .eq("user_id", profile.id)
+    .eq("visibility", "public")
+    .order("created_at", {
+      ascending: false,
+    });
 
   return (
     <>
@@ -50,12 +51,17 @@ export default async function UserPage({
 
       <main className="max-w-5xl mx-auto p-8">
         <div className="mb-10">
-          <h1 className="text-5xl font-bold">
-            {profile.username}
-          </h1>
+<h1 className="text-5xl font-bold">
+  {profile.display_name ||
+    profile.username}
+</h1>
+
+<p className="text-zinc-400 mt-2">
+  @{profile.username}
+</p>
 
           {profile.bio && (
-            <p className="text-zinc-400 mt-4 text-lg">
+            <p className="mt-6 text-lg text-zinc-300">
               {profile.bio}
             </p>
           )}
